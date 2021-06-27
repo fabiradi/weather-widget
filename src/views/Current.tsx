@@ -1,10 +1,10 @@
 /* eslint @typescript-eslint/no-use-before-define: "off" */
-import * as React from "react"
-import styled from "styled-components"
+import * as React from 'react'
+import styled from 'styled-components'
 
-import { renderTime } from "../utils/time"
-import { CurrentProps } from "../OpenWeatherMapProps"
-import Weather, { WeatherProps } from "../components/Weather"
+import { renderTime } from '../utils/time'
+import { CurrentProps } from '../OpenWeatherMapProps'
+import Weather, { WeatherProps } from '../components/Weather'
 
 const Current = ({ data }: { data?: CurrentProps }) => {
   return (
@@ -39,8 +39,8 @@ const Current = ({ data }: { data?: CurrentProps }) => {
               <Weather.Large data={item} />
             </Row>
           ))}
-          {data?.rain && <Row label="rain">{data?.rain?.["1h"]}mm</Row>}
-          {data?.snow && <Row label="rain">{data?.snow?.["1h"]}mm</Row>}
+          {data?.rain && <Row label="rain">{data?.rain?.['1h']}mm</Row>}
+          {data?.snow && <Row label="rain">{data?.snow?.['1h']}mm</Row>}
         </tbody>
       </StyledTable>
       {/*

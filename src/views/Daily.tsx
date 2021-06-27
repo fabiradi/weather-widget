@@ -1,7 +1,7 @@
-import dayjs from "dayjs"
-import utc from "dayjs/plugin/utc"
-import timezone from "dayjs/plugin/timezone" // dependent on utc plugin
-import { renderTime, renderDay } from "../utils/time"
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone' // dependent on utc plugin
+import { renderTime, renderDay } from '../utils/time'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -145,7 +145,7 @@ const Daily = ({ data }: { data: DailyProps[] }) => {
   return (
     <>
       <h3>Daily</h3>
-      <div style={{ whiteSpace: "pre", display: "flex" }}>
+      <div style={{ whiteSpace: 'pre', display: 'flex' }}>
         {data?.map((item, i) => (
           <SingleDay key={i} data={item} />
         ))}

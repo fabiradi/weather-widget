@@ -29,11 +29,11 @@ export type CurrentProps = {
   wind_deg: number
   rain?: {
     /** (where available) Rain volume for last hour, mm */
-    "1h": number
+    '1h': number
   }
   /** (where available) Snow volume for last hour, mm */
   snow?: {
-    "1h": number
+    '1h': number
   }
   weather: Array<{
     /** Weather condition id */

@@ -1,6 +1,6 @@
-import OpenWeatherMap from "./OpenWeatherMap"
+import OpenWeatherMap from './OpenWeatherMap'
 
-import "./styles.css"
+import './styles.css'
 
 const LAT = 51.75
 const LON = 8.39

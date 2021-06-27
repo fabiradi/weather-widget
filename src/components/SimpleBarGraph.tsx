@@ -1,13 +1,13 @@
-import { renderTime } from "../utils/time"
+import { renderTime } from '../utils/time'
 
 const SimpleBarGraph = ({ data }) => (
-  <div style={{ whiteSpace: "pre" }}>
+  <div style={{ whiteSpace: 'pre' }}>
     <div
       style={{
-        display: "inline-block",
-        marginRight: "0.5em",
-        fontSize: "75%",
-        color: "#999",
+        display: 'inline-block',
+        marginRight: '0.5em',
+        fontSize: '75%',
+        color: '#999',
       }}
     >
       {renderTime(data?.[0].dt)}
@@ -15,21 +15,21 @@ const SimpleBarGraph = ({ data }) => (
     {data?.map((item, i: number) => (
       <div
         key={i}
-        style={{ display: "inline-block", borderRight: "1px solid #fff" }}
+        style={{ display: 'inline-block', borderRight: '1px solid #fff' }}
       >
         {/*<div>{(item.dt / 60) % 5 === 0 ? renderTime(item.dt) : ""}</div>*/}
         <div
           style={{
-            background: item.precipitation ? "#09f" : "#cef",
+            background: item.precipitation ? '#09f' : '#cef',
             height: 1 + item.precipitation * 100,
           }}
         ></div>
         <div
           style={{
-            textAlign: "center",
-            width: "1em",
-            fontSize: "50%",
-            color: "#ccc",
+            textAlign: 'center',
+            width: '1em',
+            fontSize: '50%',
+            color: '#ccc',
           }}
           title={renderTime(item.dt)}
         >
@@ -39,10 +39,10 @@ const SimpleBarGraph = ({ data }) => (
     ))}
     <div
       style={{
-        display: "inline-block",
-        marginLeft: "0.5em",
-        fontSize: "75%",
-        color: "#999",
+        display: 'inline-block',
+        marginLeft: '0.5em',
+        fontSize: '75%',
+        color: '#999',
       }}
     >
       {renderTime(data?.[data.length - 1].dt)}

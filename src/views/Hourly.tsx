@@ -1,4 +1,4 @@
-import { renderDate, renderDay, renderTime } from "../utils/time"
+import { renderDate, renderDay, renderTime } from '../utils/time'
 import {
   Line,
   BarChart,
@@ -11,76 +11,76 @@ import {
   Tooltip,
   CartesianGrid,
   ReferenceLine,
-} from "recharts"
+} from 'recharts'
 
-import Weather, { WeatherProps } from "../components/Weather"
+import Weather, { WeatherProps } from '../components/Weather'
 
 const hourlyProps = [
-  "dt",
-  "temp",
-  "feels_like",
-  "pressure",
-  "humidity",
-  "dew_point",
-  "weather",
-  "uvi",
-  "clouds",
-  "pop",
-  "rain",
-  "snow",
-  "visibility",
-  "wind_speed",
-  "wind_deg",
-  "wind_gust",
+  'dt',
+  'temp',
+  'feels_like',
+  'pressure',
+  'humidity',
+  'dew_point',
+  'weather',
+  'uvi',
+  'clouds',
+  'pop',
+  'rain',
+  'snow',
+  'visibility',
+  'wind_speed',
+  'wind_deg',
+  'wind_gust',
 ]
 
 const translations = {
   de: {
-    temp: "Temperatur",
-    feels_like: "gefühlte Temp.",
-    pressure: "Luftdruck",
-    humidity: "Luftfeuchtigkeit",
-    uvi: "UV-Index",
-    pop: "Regen?",
+    temp: 'Temperatur',
+    feels_like: 'gefühlte Temp.',
+    pressure: 'Luftdruck',
+    humidity: 'Luftfeuchtigkeit',
+    uvi: 'UV-Index',
+    pop: 'Regen?',
   },
 }
 
 const uvCategory = (value) => {
   switch (Math.floor(value)) {
     case 0:
-      return "transparent"
+      return 'transparent'
     case 1:
-      return "#369b28"
+      return '#369b28'
     case 2:
-      return "#9bc307"
+      return '#9bc307'
     case 3:
-      return "#fff200"
+      return '#fff200'
     case 4:
-      return "#fed200"
+      return '#fed200'
     case 5:
-      return "#f7ad00"
+      return '#f7ad00'
     case 6:
-      return "#ee8200"
+      return '#ee8200'
     case 7:
-      return "#e9600a"
+      return '#e9600a'
     case 8:
-      return "#d8001d"
+      return '#d8001d'
     case 9:
-      return "#ff0099"
+      return '#ff0099'
     case 10:
-      return "#b54cff"
+      return '#b54cff'
     case 11:
     default:
-      return "#998cff"
+      return '#998cff'
   }
 }
 
-const Percentage = ({ value, color = "#999" }) => (
+const Percentage = ({ value, color = '#999' }) => (
   <>
     <div
-      style={{ background: color, opacity: value / 100, height: "1em" }}
+      style={{ background: color, opacity: value / 100, height: '1em' }}
     ></div>
-    <div style={{ fontSize: "75%", color: "#999", textAlign: "center" }}>
+    <div style={{ fontSize: '75%', color: '#999', textAlign: 'center' }}>
       {value ? `${Number.parseInt(value, 10)} %` : null}
     </div>
   </>
@@ -88,44 +88,44 @@ const Percentage = ({ value, color = "#999" }) => (
 
 const render = (key, value) => {
   switch (key) {
-    case "dt":
+    case 'dt':
       return renderTime(value)
-    case "temp":
-    case "feels_like":
-    case "dew_point":
+    case 'temp':
+    case 'feels_like':
+    case 'dew_point':
       return `${value /*.toFixed(2)*/} °C`
-    case "pressure":
+    case 'pressure':
       return value //`${value} hPa`
-    case "humidity":
+    case 'humidity':
       return `${value} %`
-    case "clouds":
+    case 'clouds':
       return <Percentage value={value} color="#666" />
-    case "wind_speed":
-    case "wind_gust":
+    case 'wind_speed':
+    case 'wind_gust':
       return `${value} m/s`
-    case "wind_deg":
+    case 'wind_deg':
       return `${value} °`
-    case "visibility":
+    case 'visibility':
       return `${(value / 1000).toFixed(0)}km`
-    case "uvi":
+    case 'uvi':
       return (
         <div style={{ background: uvCategory(value) }}>{value.toFixed(2)}</div>
       )
-    case "pop":
+    case 'pop':
       //return value ? `${Math.round(value * 100)} %` : "–"
       return (
         value !== undefined && <Percentage value={value * 100} color="#09f" />
       )
-    case "weather":
+    case 'weather':
       return value?.map((item: WeatherProps, i: number) => (
         <Weather.Small key={i} data={item} />
       ))
-    case "rain":
-    case "snow":
-      return value ? `${value?.["1h"]} mm` : ""
+    case 'rain':
+    case 'snow':
+      return value ? `${value?.['1h']} mm` : ''
     default:
       return (
-        <pre style={{ textAlign: "left" }}>
+        <pre style={{ textAlign: 'left' }}>
           {JSON.stringify(value, null, 2)}
         </pre>
       )
@@ -153,15 +153,15 @@ const Hourly = ({ data, current }) => {
     return {
       ...item,
       //uvi: item.uvi > 0 ? item.uvi : null,
-      rain_mm: (item.rain && item.rain["1h"]) || 0,
+      rain_mm: (item.rain && item.rain['1h']) || 0,
       name: renderTime(item.dt),
-      label: isHigh || isLow ? label : "",
+      label: isHigh || isLow ? label : '',
     }
   })
 
   //console.log(chartdata)
   const midnights = chartdata
-    ?.map((item, i) => (item.name === "00:00" ? { dt: item.dt, i } : null))
+    ?.map((item, i) => (item.name === '00:00' ? { dt: item.dt, i } : null))
     .filter((item) => item?.i)
 
   const UvDot = (props) => {
@@ -221,7 +221,7 @@ const Hourly = ({ data, current }) => {
             stroke="#666"
             strokeWidth={2}
             strokeDasharray="10 5"
-            label={"" + renderDay(item.dt)}
+            label={'' + renderDay(item.dt)}
           />
         ))}
 
@@ -277,7 +277,7 @@ const Hourly = ({ data, current }) => {
         />
       </ComposedChart>
 
-      <table className={"table"}>
+      <table className={'table'}>
         <tbody>
           {pivot &&
             Object.entries(pivot).map(([key, values]) => (
