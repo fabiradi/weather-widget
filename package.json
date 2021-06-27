@@ -1,6 +1,7 @@
 {
   "name": "weather-widget",
   "version": "0.1.0",
+  "license": "MIT",
   "description": "All-in-one weather data widget with rich charts",
   "keywords": [
     "typescript",
