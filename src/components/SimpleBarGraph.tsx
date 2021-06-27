@@ -2,7 +2,14 @@ import { renderTime } from "../utils/time"
 
 const SimpleBarGraph = ({ data }) => (
   <div style={{ whiteSpace: "pre" }}>
-    <div style={{ display: "inline-block", marginRight: "0.5em" }}>
+    <div
+      style={{
+        display: "inline-block",
+        marginRight: "0.5em",
+        fontSize: "75%",
+        color: "#999",
+      }}
+    >
       {renderTime(data?.[0].dt)}
     </div>
     {data?.map((item, i: number) => (
@@ -13,7 +20,7 @@ const SimpleBarGraph = ({ data }) => (
         {/*<div>{(item.dt / 60) % 5 === 0 ? renderTime(item.dt) : ""}</div>*/}
         <div
           style={{
-            background: "#30f",
+            background: item.precipitation ? "#09f" : "#cef",
             height: 1 + item.precipitation * 100,
           }}
         ></div>
@@ -26,11 +33,18 @@ const SimpleBarGraph = ({ data }) => (
           }}
           title={renderTime(item.dt)}
         >
-          {item.precipitation}
+          {/*item.precipitation*/}
         </div>
       </div>
     ))}
-    <div style={{ display: "inline-block", marginLeft: "0.5em" }}>
+    <div
+      style={{
+        display: "inline-block",
+        marginLeft: "0.5em",
+        fontSize: "75%",
+        color: "#999",
+      }}
+    >
       {renderTime(data?.[data.length - 1].dt)}
     </div>
   </div>

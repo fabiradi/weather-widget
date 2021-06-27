@@ -1,6 +1,7 @@
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 import timezone from "dayjs/plugin/timezone" // dependent on utc plugin
+import { renderTime, renderDay } from "../utils/time"
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -65,21 +66,6 @@ type DailyProps = {
   /** Atmospheric temperature (varying according to pressure and humidity) below which water droplets begin to condense and dew can form. Units – default: kelvin, metric: Celsius, imperial: Fahrenheit. */
   dew_point: number
 }
-
-const renderDay = (ts: TimeStamp) =>
-  dayjs(ts * 1000)
-    .tz("Europe/Berlin")
-    .format("ddd, DD.MM.")
-
-const renderDate = (ts: TimeStamp) =>
-  dayjs(ts * 1000)
-    .tz("Europe/Berlin")
-    .format("DD.MM.")
-
-const renderTime = (ts: TimeStamp) =>
-  dayjs(ts * 1000)
-    .tz("Europe/Berlin")
-    .format("HH:mm")
 
 const SingleDay = ({ data }: { data: DailyProps }) => {
   const {

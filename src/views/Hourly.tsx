@@ -1,6 +1,5 @@
-import { renderTime } from "../utils/time"
+import { renderDate, renderDay, renderTime } from "../utils/time"
 import {
-  LineChart,
   Line,
   BarChart,
   Bar,
@@ -10,10 +9,11 @@ import {
   YAxis,
   LabelList,
   Tooltip,
-  Legend,
   CartesianGrid,
   ReferenceLine,
 } from "recharts"
+
+import Weather, { WeatherProps } from "../components/Weather"
 
 const hourlyProps = [
   "dt",
@@ -117,19 +117,8 @@ const render = (key, value) => {
         value !== undefined && <Percentage value={value * 100} color="#09f" />
       )
     case "weather":
-      return value?.map((item, i) => (
-        <div key={i} style={{ fontSize: "85%", textAlign: "center" }}>
-          {item.main}{" "}
-          {/*<div style={{ opacity: 0.5 }}>{item.description}</div>*/}
-          <div>
-            <img
-              src={`http://openweathermap.org/img/wn/${item.icon}@2x.png`}
-              alt={item.description}
-              title={item.description}
-              style={{ width: 30, background: "#ccc", borderRadius: 10 }}
-            />
-          </div>
-        </div>
+      return value?.map((item: WeatherProps, i: number) => (
+        <Weather.Small key={i} data={item} />
       ))
     case "rain":
     case "snow":
@@ -172,8 +161,8 @@ const Hourly = ({ data, current }) => {
 
   //console.log(chartdata)
   const midnights = chartdata
-    ?.map((item, i) => (item.name === "00:00" ? i : null))
-    .filter((item) => item)
+    ?.map((item, i) => (item.name === "00:00" ? { dt: item.dt, i } : null))
+    .filter((item) => item?.i)
 
   const UvDot = (props) => {
     //console.log(props)
@@ -194,9 +183,6 @@ const Hourly = ({ data, current }) => {
   return (
     <>
       <h3>Hourly (48h)</h3>
-      <pre>
-        {renderTime(current?.sunrise)} - {renderTime(current?.sunset)}
-      </pre>
       <ComposedChart
         width={800}
         height={300}
@@ -224,17 +210,18 @@ const Hourly = ({ data, current }) => {
           </linearGradient>
         </defs>
 
-        <XAxis dataKey="name" interval={6} axisLine={false} />
+        <XAxis dataKey="name" /*interval={4}*/ axisLine={false} />
         <Tooltip />
         <CartesianGrid />
 
         {midnights?.map((item, i) => (
           <ReferenceLine
             key={i}
-            x={item}
+            x={item.i}
             stroke="#666"
             strokeWidth={2}
             strokeDasharray="10 5"
+            label={"" + renderDay(item.dt)}
           />
         ))}
 
@@ -263,7 +250,7 @@ const Hourly = ({ data, current }) => {
         <YAxis yAxisId="rain" dataKey="rain_mm" domain={[0, 10]} hide />
         <Bar dataKey="rain_mm" yAxisId="rain" fill="#3366ff" />
 
-        <YAxis dataKey="temp" />
+        <YAxis dataKey="temp" hide />
         <Line
           dataKey="dew_point"
           dot={false}
@@ -289,10 +276,6 @@ const Hourly = ({ data, current }) => {
           type="natural"
         />
       </ComposedChart>
-      <h3>uvi</h3>
-      <BarChart width={300} height={100} data={data} barCategoryGap={1}>
-        <Bar dataKey="uvi" />
-      </BarChart>
 
       <table className={"table"}>
         <tbody>

@@ -5,9 +5,19 @@ import timezone from "dayjs/plugin/timezone" // dependent on utc plugin
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
-const renderTime = (ts) =>
+const renderTime = (ts: number) =>
   dayjs(ts * 1000)
     .tz("Europe/Berlin")
     .format("HH:mm")
 
-export { renderTime }
+const renderDay = (ts: number) =>
+  dayjs(ts * 1000)
+    .tz("Europe/Berlin")
+    .format("ddd, DD.MM.")
+
+const renderDate = (ts: number) =>
+  dayjs(ts * 1000)
+    .tz("Europe/Berlin")
+    .format("DD.MM.")
+
+export { renderTime, renderDate, renderDay }
