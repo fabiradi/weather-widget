@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { renderTime } from '../utils/time'
 import { CurrentProps } from '../OpenWeatherMapProps'
-import Weather, { WeatherProps } from '../components/Weather'
+import Weather from '../components/Weather'
 
 const Current = ({ data }: { data?: CurrentProps }) => {
   return (

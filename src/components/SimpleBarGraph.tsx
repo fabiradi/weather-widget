@@ -1,6 +1,7 @@
 import { renderTime } from '../utils/time'
+import { MinutelyProps } from '../OpenWeatherMapProps'
 
-const SimpleBarGraph = ({ data }) => (
+const SimpleBarGraph = ({ data }: { data?: MinutelyProps[] }) => (
   <div style={{ whiteSpace: 'pre' }}>
     <div
       style={{

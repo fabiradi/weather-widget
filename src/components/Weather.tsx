@@ -1,15 +1,6 @@
-export type WeatherProps = {
-  /** Weather condition id */
-  id: number
-  /** Group of weather parameters (Rain, Snow, Extreme etc.) */
-  main: string
-  /** Weather condition within the group (full list of weather conditions). Get the output in your language */
-  description: string
-  /** Weather icon id. How to get icons */
-  icon: string
-}
+import { WeatherCondition } from '../OpenWeatherMapProps'
 
-const Small = ({ data }: { data: WeatherProps }) => (
+const Small = ({ data }: { data: WeatherCondition }) => (
   <div style={{ fontSize: '85%', textAlign: 'center' }}>
     {data.main}
     {/*
@@ -26,7 +17,7 @@ const Small = ({ data }: { data: WeatherProps }) => (
   </div>
 )
 
-const Large = ({ data }: { data: WeatherProps }) => (
+const Large = ({ data }: { data: WeatherCondition }) => (
   <div style={{ fontSize: '85%', textAlign: 'center' }} title={data.main}>
     <div>
       <img

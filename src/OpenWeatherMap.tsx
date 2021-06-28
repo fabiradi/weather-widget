@@ -9,7 +9,7 @@ import demo from './demo-data'
 const ApiKey = '4299d8d17ded7d36f45aaf2d123a24fa'
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/onecall'
 
-const params2query = (obj: object) =>
+const params2query = (obj: Record<string, string | number>) =>
   Object.entries(obj)
     .map((p) => p.join('='))
     .join('&')
@@ -46,7 +46,7 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
           <Minutely data={demo.minutely} />
         </div>
       </div>
-      <Hourly data={hourly} current={current} />
+      <Hourly data={hourly} />
       <Daily data={daily} />
     </>
   )

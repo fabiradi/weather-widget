@@ -1,7 +1,6 @@
-import { renderDate, renderDay, renderTime } from '../utils/time'
+import { renderDay, renderTime } from '../utils/time'
 import {
   Line,
-  BarChart,
   Bar,
   ComposedChart,
   Area,
@@ -13,7 +12,8 @@ import {
   ReferenceLine,
 } from 'recharts'
 
-import Weather, { WeatherProps } from '../components/Weather'
+import { HourlyProps, WeatherCondition } from '../OpenWeatherMapProps'
+import Weather from '../components/Weather'
 
 const hourlyProps = [
   'dt',
@@ -34,7 +34,7 @@ const hourlyProps = [
   'wind_gust',
 ]
 
-const translations = {
+const translations: { de: Record<string, string> } = {
   de: {
     temp: 'Temperatur',
     feels_like: 'gefühlte Temp.',
@@ -45,7 +45,7 @@ const translations = {
   },
 }
 
-const uvCategory = (value) => {
+const uvCategory = (value: number) => {
   switch (Math.floor(value)) {
     case 0:
       return 'transparent'
@@ -75,74 +75,74 @@ const uvCategory = (value) => {
   }
 }
 
-const Percentage = ({ value, color = '#999' }) => (
+const Percentage = ({
+  value,
+  color = '#999',
+}: {
+  value: number
+  color: string
+}) => (
   <>
     <div
       style={{ background: color, opacity: value / 100, height: '1em' }}
     ></div>
     <div style={{ fontSize: '75%', color: '#999', textAlign: 'center' }}>
-      {value ? `${Number.parseInt(value, 10)} %` : null}
+      {value ? `${value.toFixed(0)} %` : null}
     </div>
   </>
 )
 
-const render = (key, value) => {
+const render = (key: string, row: HourlyProps) => {
   switch (key) {
     case 'dt':
-      return renderTime(value)
+      return renderTime(row?.dt)
     case 'temp':
+      return `${row.temp /*.toFixed(2)*/} °C`
     case 'feels_like':
+      return `${row.feels_like /*.toFixed(2)*/} °C`
     case 'dew_point':
-      return `${value /*.toFixed(2)*/} °C`
+      return `${row.dew_point /*.toFixed(2)*/} °C`
     case 'pressure':
-      return value //`${value} hPa`
+      return row.pressure //`${value} hPa`
     case 'humidity':
-      return `${value} %`
+      return `${row.humidity} %`
     case 'clouds':
-      return <Percentage value={value} color="#666" />
+      return <Percentage value={row.clouds} color="#666" />
     case 'wind_speed':
+      return `${row.wind_speed} m/s`
     case 'wind_gust':
-      return `${value} m/s`
+      return `${row.wind_gust} m/s`
     case 'wind_deg':
-      return `${value} °`
+      return `${row.wind_deg} °`
     case 'visibility':
-      return `${(value / 1000).toFixed(0)}km`
+      return `${(row.visibility / 1000).toFixed(0)}km`
     case 'uvi':
       return (
-        <div style={{ background: uvCategory(value) }}>{value.toFixed(2)}</div>
+        <div style={{ background: uvCategory(row.uvi) }}>
+          {row.uvi.toFixed(2)}
+        </div>
       )
     case 'pop':
       //return value ? `${Math.round(value * 100)} %` : "–"
       return (
-        value !== undefined && <Percentage value={value * 100} color="#09f" />
+        row.pop !== undefined && (
+          <Percentage value={row.pop * 100} color="#09f" />
+        )
       )
     case 'weather':
-      return value?.map((item: WeatherProps, i: number) => (
+      return row.weather?.map((item: WeatherCondition, i: number) => (
         <Weather.Small key={i} data={item} />
       ))
     case 'rain':
+      return row.rain ? `${row.rain['1h']} mm` : ''
     case 'snow':
-      return value ? `${value?.['1h']} mm` : ''
+      return row.snow ? `${row.snow['1h']} mm` : ''
     default:
-      return (
-        <pre style={{ textAlign: 'left' }}>
-          {JSON.stringify(value, null, 2)}
-        </pre>
-      )
+      return <pre style={{ textAlign: 'left' }}>value for "{key}"?</pre>
   }
 }
 
-const Hourly = ({ data, current }) => {
-  const pivot = {}
-  if (data) {
-    hourlyProps.forEach((key) => (pivot[key] = []))
-    data?.forEach((element) => {
-      Object.keys(pivot).forEach((key) => {
-        pivot[key].push(element[key])
-      })
-    })
-  }
-
+const Hourly = ({ data }: { data?: HourlyProps[] }) => {
   const chartdata = data?.map((item, idx, all) => {
     const prevItem = all[idx - 1]
     const nextItem = all[idx + 1]
@@ -163,22 +163,6 @@ const Hourly = ({ data, current }) => {
   const midnights = chartdata
     ?.map((item, i) => (item.name === '00:00' ? { dt: item.dt, i } : null))
     .filter((item) => item?.i)
-
-  const UvDot = (props) => {
-    //console.log(props)
-    const { cx, cy, r, value } = props
-
-    return (
-      <circle
-        cx={cx}
-        cy={cy}
-        r={r * 2}
-        stroke="none" //{stroke}
-        strokeWidth={1}
-        fill={uvCategory(value[1] || value)}
-      />
-    )
-  }
 
   return (
     <>
@@ -217,11 +201,11 @@ const Hourly = ({ data, current }) => {
         {midnights?.map((item, i) => (
           <ReferenceLine
             key={i}
-            x={item.i}
+            x={item?.i}
             stroke="#666"
             strokeWidth={2}
             strokeDasharray="10 5"
-            label={'' + renderDay(item.dt)}
+            label={'' + (item ? renderDay(item.dt) : '')}
           />
         ))}
 
@@ -279,20 +263,44 @@ const Hourly = ({ data, current }) => {
 
       <table className={'table'}>
         <tbody>
-          {pivot &&
-            Object.entries(pivot).map(([key, values]) => (
-              <tr key={key}>
-                <th>{translations.de[key] || key}</th>
-                {values?.map((value, idx) => (
-                  <td key={idx} className="value">
-                    {render(key, value)}
-                  </td>
-                ))}
-              </tr>
+          {/*
+          <tr>
+            <th>dt</th>
+            {data?.map((item, i) => (
+              <td key={i}>{renderTime(item.dt)}</td>
             ))}
+          </tr>
+          */}
+          {hourlyProps.map((key) => (
+            <tr key={key}>
+              <th>{translations.de[key] || key}</th>
+              {data?.map((row, idx) => (
+                <td key={idx} className="value">
+                  {render(key, row)}
+                </td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
     </>
+  )
+}
+
+const UvDot = (props: any) => {
+  //console.log(props)
+  const { cx, cy, r, value } = props
+
+  return (
+    <circle
+      cx={cx}
+      cy={cy}
+      r={r * 2}
+      stroke="none" //{stroke}
+      strokeWidth={1}
+      //fill={uvCategory(value[1] || value)} FIXME: Wehen to use array here?
+      fill={uvCategory(value)}
+    />
   )
 }
 
