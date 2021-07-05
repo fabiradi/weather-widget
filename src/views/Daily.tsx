@@ -2,8 +2,10 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone' // dependent on utc plugin
 import { renderTime, renderDay } from '../utils/time'
+import styled from 'styled-components'
 
 import { DailyProps } from '../OpenWeatherMapProps'
+import Weather from '../components/Weather'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -21,13 +23,13 @@ const SingleDay = ({ data }: { data: DailyProps }) => {
   } = data
 
   return (
-    <table style={{ border: '1px solid #000', marginRight: 10 }}>
+    <Table>
       <tbody>
         <tr>
           <th colSpan={3}>{renderDay(dt)}</th>
         </tr>
         <tr>
-          <th>Sun</th>
+          <th>Rise/Set</th>
           <td>{renderTime(sunrise)}</td>
           <td>{renderTime(sunset)}</td>
         </tr>
@@ -69,15 +71,47 @@ const SingleDay = ({ data }: { data: DailyProps }) => {
           <td>{dew_point}°C</td>
         </tr>
         <tr>
-          <th></th>
-          <td></td>
+          <th>Wind Speed</th>
+          <td>{data.wind_speed} m/s</td>
         </tr>
         <tr>
-          <th></th>
-          <td></td>
+          <th>Wind Gust</th>
+          <td>{data.wind_gust} m/s</td>
+        </tr>
+        <tr>
+          <th>Wind Deg</th>
+          <td>{data.wind_deg}°</td>
+        </tr>
+        <tr>
+          <th>Clouds</th>
+          <td>{data.clouds}%</td>
+        </tr>
+        <tr>
+          <th>UVI</th>
+          <td>{data.uvi}</td>
+        </tr>
+        <tr>
+          <th>Pop</th>
+          <td>{(data.pop * 100).toFixed(0)}%</td>
+        </tr>
+        <tr>
+          <th>Rain</th>
+          <td>{data.rain ? `${data.rain} mm` : ''}</td>
+        </tr>
+        <tr>
+          <th>Snow</th>
+          <td>{data.snow ? `${data.snow} mm` : ''}</td>
+        </tr>
+        <tr>
+          <th>Weather</th>
+          {data.weather.map((item,i) => (
+            <td key={i}>
+              <Weather.Large data={item} />
+            </td>
+          ))}
         </tr>
       </tbody>
-    </table>
+    </Table>
   )
 }
 
@@ -94,5 +128,16 @@ const Daily = ({ data }: { data?: DailyProps[] }) => {
     </>
   )
 }
+
+const Table = styled.table`
+  border: 1px solid #000;
+  margin-right: 10px;
+  border-collapse: collapse;
+
+  & th,
+  & td {
+    border: 1px solid #999;
+  }
+`
 
 export default Daily
