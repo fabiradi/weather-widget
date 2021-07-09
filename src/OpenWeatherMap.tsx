@@ -5,6 +5,7 @@ import {} from '@material-ui/icons'
 import { Current, Minutely, Hourly, Daily } from './views'
 import { OpenWeatherMapOneCallProps } from './OpenWeatherMapProps'
 import demo from './demoData'
+import Raw from './views/Raw'
 
 const ApiKey = '4299d8d17ded7d36f45aaf2d123a24fa'
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/onecall'
@@ -48,6 +49,7 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
       </div>
       <Hourly data={hourly} />
       <Daily data={daily} />
+      <Raw data={result.data} />
     </>
   )
 }
