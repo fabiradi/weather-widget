@@ -11,64 +11,53 @@ dayjs.extend(utc)
 dayjs.extend(timezone)
 
 const SingleDay = ({ data }: { data: DailyProps }) => {
-  const {
-    dt,
-    sunrise,
-    sunset,
-    temp,
-    feels_like,
-    pressure,
-    humidity,
-    dew_point,
-  } = data
-
   return (
     <Table>
       <tbody>
         <tr>
-          <th colSpan={3}>{renderDay(dt)}</th>
+          <th colSpan={3}>{renderDay(data.dt)}</th>
         </tr>
         <tr>
           <th>Rise/Set</th>
-          <td>{renderTime(sunrise)}</td>
-          <td>{renderTime(sunset)}</td>
+          <td>{renderTime(data.sunrise)}</td>
+          <td>{renderTime(data.sunset)}</td>
         </tr>
         <tr>
           <th>T.Min/Max</th>
-          <td>{temp.min}°C</td>
-          <td>{temp.max}°C</td>
+          <td>{data.temp.min}°C</td>
+          <td>{data.temp.max}°C</td>
         </tr>
         <tr>
           <th>T.Morn</th>
-          <td>{temp.morn}°C</td>
-          <td>({feels_like.morn}°C)</td>
+          <td>{data.temp.morn}°C</td>
+          <td>({data.feels_like.morn}°C)</td>
         </tr>
         <tr>
           <th>T.Day</th>
-          <td>{temp.day}°C</td>
-          <td>({feels_like.day}°C)</td>
+          <td>{data.temp.day}°C</td>
+          <td>({data.feels_like.day}°C)</td>
         </tr>
         <tr>
           <th>T.Eve</th>
-          <td>{temp.eve}°C</td>
-          <td>({feels_like.eve}°C)</td>
+          <td>{data.temp.eve}°C</td>
+          <td>({data.feels_like.eve}°C)</td>
         </tr>
         <tr>
           <th>T.Night</th>
-          <td>{temp.night}°C</td>
-          <td>({feels_like.night}°C)</td>
+          <td>{data.temp.night}°C</td>
+          <td>({data.feels_like.night}°C)</td>
         </tr>
         <tr>
           <th>Press</th>
-          <td>{pressure}hPa</td>
+          <td>{data.pressure}hPa</td>
         </tr>
         <tr>
           <th>Hum.</th>
-          <td>{humidity}%</td>
+          <td>{data.humidity}%</td>
         </tr>
         <tr>
           <th>Dew</th>
-          <td>{dew_point}°C</td>
+          <td>{data.dew_point}°C</td>
         </tr>
         <tr>
           <th>Wind Speed</th>

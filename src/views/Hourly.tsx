@@ -87,7 +87,7 @@ const Percentage = ({
       style={{ background: color, opacity: value / 100, height: '1em' }}
     ></div>
     <div style={{ fontSize: '75%', color: '#999', textAlign: 'center' }}>
-      {value ? `${value.toFixed(0)} %` : null}
+      {value ? `${value.toFixed(0)} %` : undefined}
     </div>
   </>
 )
@@ -161,7 +161,7 @@ const Hourly = ({ data }: { data?: HourlyProps[] }) => {
 
   //console.log(chartdata)
   const midnights = chartdata
-    ?.map((item, i) => (item.name === '00:00' ? { dt: item.dt, i } : null))
+    ?.map((item, i) => (item.name === '00:00' ? { dt: item.dt, i } : undefined))
     .filter((item) => item?.i)
 
   return (
