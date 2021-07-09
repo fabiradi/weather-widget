@@ -58,12 +58,8 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
       </div>
       <div style={{ display: 'flex' }}>
         <Current data={current} />
-        <div>
-          <Minutely data={minutely} />
-          <hr />
-          <div style={{ opacity: 0.5 }}>Demo</div>
-          <Minutely data={demo.minutely} />
-        </div>
+        <Minutely data={minutely} />
+      </div>
       {alerts && <Alerts data={alerts} />}
       <Hourly data={hourly} />
       <Daily data={daily} />
