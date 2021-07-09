@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import useSWR from 'swr'
 import { LoadingOutlined } from '@ant-design/icons'
-import {} from '@material-ui/icons'
 
-import { Current, Minutely, Hourly, Daily, Alerts, Raw } from './views'
+import { Today, Current, Minutely, Hourly, Daily, Alerts, Raw } from './views'
 import { OpenWeatherMapOneCallProps } from './OpenWeatherMapProps'
 import demo from './demoData'
 
@@ -43,21 +42,24 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
         {result.isValidating && (
           <LoadingOutlined style={{ color: '#008dff' }} />
         )}
+        <div style={{ fontSize: '50%', fontWeight: 'normal' }}>
+          {lat} {lon}
+          <button onClick={handleReload}>Reload</button>
+          <label>
+            <input
+              type="checkbox"
+              checked={isDemo}
+              onChange={(e) => setIsDemo(e.target.checked)}
+            />{' '}
+            Demo?
+          </label>
+        </div>
       </h1>
-      <div>
-        {lat} {lon}
-        <button onClick={handleReload}>Reload</button>
-        <label>
-          <input
-            type="checkbox"
-            checked={isDemo}
-            onChange={(e) => setIsDemo(e.target.checked)}
-          />{' '}
-          Demo?
-        </label>
-      </div>
       <div style={{ display: 'flex' }}>
-        <Current data={current} />
+        <div>
+          <Today current={current} hourly={hourly?.[0]} daily={daily?.[0]} />
+          <Current data={current} />
+        </div>
         <Minutely data={minutely} />
       </div>
       {alerts && <Alerts data={alerts} />}

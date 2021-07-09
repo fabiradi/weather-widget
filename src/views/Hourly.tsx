@@ -1,4 +1,5 @@
 import { renderDay, renderTime } from '../utils/time'
+import { uvCategoryColor } from '../utils/uvi'
 import {
   Line,
   Bar,
@@ -45,36 +46,6 @@ const translations: { de: Record<string, string> } = {
   },
 }
 
-const uvCategory = (value: number) => {
-  switch (Math.floor(value)) {
-    case 0:
-      return 'transparent'
-    case 1:
-      return '#369b28'
-    case 2:
-      return '#9bc307'
-    case 3:
-      return '#fff200'
-    case 4:
-      return '#fed200'
-    case 5:
-      return '#f7ad00'
-    case 6:
-      return '#ee8200'
-    case 7:
-      return '#e9600a'
-    case 8:
-      return '#d8001d'
-    case 9:
-      return '#ff0099'
-    case 10:
-      return '#b54cff'
-    case 11:
-    default:
-      return '#998cff'
-  }
-}
-
 const Percentage = ({
   value,
   color = '#999',
@@ -118,7 +89,7 @@ const render = (key: string, row: HourlyProps) => {
       return `${(row.visibility / 1000).toFixed(0)}km`
     case 'uvi':
       return (
-        <div style={{ background: uvCategory(row.uvi) }}>
+        <div style={{ background: uvCategoryColor(row.uvi) }}>
           {row.uvi.toFixed(2)}
         </div>
       )
@@ -299,7 +270,7 @@ const UvDot = (props: any) => {
       stroke="none" //{stroke}
       strokeWidth={1}
       //fill={uvCategory(value[1] || value)} FIXME: Wehen to use array here?
-      fill={uvCategory(value)}
+      fill={uvCategoryColor(value)}
     />
   )
 }

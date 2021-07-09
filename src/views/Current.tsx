@@ -1,4 +1,3 @@
-/* eslint @typescript-eslint/no-use-before-define: "off" */
 import * as React from 'react'
 import styled from 'styled-components'
 
@@ -28,10 +27,12 @@ const Current = ({ data }: { data?: CurrentProps }) => {
           <Row label="visibility">{data?.visibility} m</Row>
           <Row label="wind_speed">{data?.wind_speed} m/s</Row>
           <Row label="wind_deg">{data?.wind_deg} °</Row>
-          {data?.wind_gust && <Row label="wind_gust">{data?.wind_gust} m/s</Row>}
+          {data?.wind_gust && (
+            <Row label="wind_gust">{data?.wind_gust} m/s</Row>
+          )}
           {data?.weather.map((item, i) => (
             <Row label="weather small" key={i}>
-              <Weather.Small data={item} />
+              <Weather.Small data={item} showText />
             </Row>
           ))}
           {data?.weather.map((item, i) => (

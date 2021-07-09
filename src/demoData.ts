@@ -20,7 +20,7 @@ const full = {
     pressure: 1019,
     humidity: 83,
     dew_point: 15.9,
-    uvi: 0.89,
+    uvi: 6.89,
     clouds: 92,
     visibility: 10000,
     wind_speed: 0.99,
