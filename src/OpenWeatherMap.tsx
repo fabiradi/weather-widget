@@ -3,11 +3,9 @@ import useSWR from 'swr'
 import { LoadingOutlined } from '@ant-design/icons'
 import {} from '@material-ui/icons'
 
-import { Current, Minutely, Hourly, Daily } from './views'
+import { Current, Minutely, Hourly, Daily, Alerts, Raw } from './views'
 import { OpenWeatherMapOneCallProps } from './OpenWeatherMapProps'
 import demo from './demoData'
-import Raw from './views/Raw'
-import Alerts from './views/Alerts'
 
 const ApiKey = '4299d8d17ded7d36f45aaf2d123a24fa'
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/onecall'
