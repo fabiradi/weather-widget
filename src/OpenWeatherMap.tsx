@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import useSWR from 'swr'
 import { LoadingOutlined } from '@ant-design/icons'
 import {} from '@material-ui/icons'
@@ -20,6 +21,17 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
   const params = { lat, lon, appid: ApiKey, units: 'metric', lang: 'de' }
   const url = `${BASE_URL}?${params2query(params)}`
 
+  const [isDemo, setIsDemo] = useState(false)
+  const demoResult = {
+    data: demo.full as OpenWeatherMapOneCallProps,
+    mutate: () => {
+      console.log('demo: fake reloading')
+    },
+    isValidating: false,
+  }
+
+  const liveResult = useSWR<OpenWeatherMapOneCallProps>(url)
+  const result = isDemo ? demoResult : liveResult
   const { current, minutely, hourly, daily, alerts } = result.data || {}
 
   const handleReload = () => {
@@ -37,6 +49,14 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
       <div>
         {lat} {lon}
         <button onClick={handleReload}>Reload</button>
+        <label>
+          <input
+            type="checkbox"
+            checked={isDemo}
+            onChange={(e) => setIsDemo(e.target.checked)}
+          />{' '}
+          Demo?
+        </label>
       </div>
       <div style={{ display: 'flex' }}>
         <Current data={current} />
