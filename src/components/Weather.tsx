@@ -1,23 +1,39 @@
 import { WeatherCondition } from '../OpenWeatherMapProps'
 
-const Small = ({ data }: { data: WeatherCondition }) => (
-  <div style={{ fontSize: '85%', textAlign: 'center' }}>
-    {data.main}
-    {/*
-    <div style={{ opacity: 0.5 }}>{data.description}</div>
-    */}
+interface SmallProps {
+  data: WeatherCondition
+  showText?: boolean
+}
+
+interface LargeProps {
+  data: WeatherCondition
+}
+
+const Small = ({ data, showText }: SmallProps) => (
+  <div
+    style={{
+      fontSize: '85%',
+      textAlign: 'center',
+      width: 50,
+      WebkitHyphens: 'auto',
+    }}
+  >
+    {/* {data.main} */}
     <div>
       <img
         src={`http://openweathermap.org/img/wn/${data.icon}@2x.png`}
         alt={data.description}
-        title={data.description}
-        style={{ width: 30, background: '#ccc', borderRadius: 10 }}
+        title={`${data.description} (${data.main})`}
+        style={{ width: 50, background: '#ccc', borderRadius: 10 }}
       />
     </div>
+    {showText && (
+      <div style={{ opacity: 0.5, fontSize: '80%' }}>{data.description}</div>
+    )}
   </div>
 )
 
-const Large = ({ data }: { data: WeatherCondition }) => (
+const Large = ({ data }: LargeProps) => (
   <div style={{ fontSize: '85%', textAlign: 'center' }} title={data.main}>
     <div>
       <img
