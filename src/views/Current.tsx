@@ -28,14 +28,14 @@ const Current = ({ data }: { data?: CurrentProps }) => {
           <Row label="visibility">{data?.visibility} m</Row>
           <Row label="wind_speed">{data?.wind_speed} m/s</Row>
           <Row label="wind_deg">{data?.wind_deg} °</Row>
-          <Row label="wind_gust">{data?.wind_gust} m/s</Row>
+          {data?.wind_gust && <Row label="wind_gust">{data?.wind_gust} m/s</Row>}
           {data?.weather.map((item, i) => (
-            <Row label="weather_small" key={i}>
+            <Row label="weather small" key={i}>
               <Weather.Small data={item} />
             </Row>
           ))}
           {data?.weather.map((item, i) => (
-            <Row label="weather_large" key={i}>
+            <Row label="weather large" key={i}>
               <Weather.Large data={item} />
             </Row>
           ))}
