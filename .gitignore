@@ -1,5 +1,8 @@
 node_modules
 
+# CRA
+/build
+
 # yarn v2
 .yarn/*
 #!.yarn/cache
