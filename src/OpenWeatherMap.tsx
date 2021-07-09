@@ -6,6 +6,7 @@ import { Current, Minutely, Hourly, Daily } from './views'
 import { OpenWeatherMapOneCallProps } from './OpenWeatherMapProps'
 import demo from './demoData'
 import Raw from './views/Raw'
+import Alerts from './views/Alerts'
 
 const ApiKey = '4299d8d17ded7d36f45aaf2d123a24fa'
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/onecall'
@@ -19,8 +20,7 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
   const params = { lat, lon, appid: ApiKey, units: 'metric', lang: 'de' }
   const url = `${BASE_URL}?${params2query(params)}`
 
-  const result = useSWR<OpenWeatherMapOneCallProps>(url)
-  const { current, minutely, hourly, daily } = result.data || {}
+  const { current, minutely, hourly, daily, alerts } = result.data || {}
 
   const handleReload = () => {
     result.mutate()
@@ -46,7 +46,7 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
           <div style={{ opacity: 0.5 }}>Demo</div>
           <Minutely data={demo.minutely} />
         </div>
-      </div>
+      {alerts && <Alerts data={alerts} />}
       <Hourly data={hourly} />
       <Daily data={daily} />
       <Raw data={result.data} />
