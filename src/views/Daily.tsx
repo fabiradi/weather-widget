@@ -15,37 +15,43 @@ const SingleDay = ({ data }: { data: DailyProps }) => {
     <Table>
       <tbody>
         <tr>
-          <th colSpan={3}>{renderDay(data.dt)}</th>
+          <th colSpan={2}>{renderDay(data.dt)}</th>
         </tr>
         <tr>
           <th>Rise/Set</th>
-          <td>{renderTime(data.sunrise)}</td>
-          <td>{renderTime(data.sunset)}</td>
+          <td>
+            {renderTime(data.sunrise)} / {renderTime(data.sunset)}
+          </td>
         </tr>
         <tr>
           <th>T.Min/Max</th>
-          <td>{data.temp.min}°C</td>
-          <td>{data.temp.max}°C</td>
+          <td>
+            {data.temp.min}°C / {data.temp.max}°C
+          </td>
         </tr>
         <tr>
           <th>T.Morn</th>
-          <td>{data.temp.morn}°C</td>
-          <td>({data.feels_like.morn}°C)</td>
+          <td>
+            {data.temp.morn}°C ({data.feels_like.morn}°C)
+          </td>
         </tr>
         <tr>
           <th>T.Day</th>
-          <td>{data.temp.day}°C</td>
-          <td>({data.feels_like.day}°C)</td>
+          <td>
+            {data.temp.day}°C ({data.feels_like.day}°C)
+          </td>
         </tr>
         <tr>
           <th>T.Eve</th>
-          <td>{data.temp.eve}°C</td>
-          <td>({data.feels_like.eve}°C)</td>
+          <td>
+            {data.temp.eve}°C ({data.feels_like.eve}°C)
+          </td>
         </tr>
         <tr>
           <th>T.Night</th>
-          <td>{data.temp.night}°C</td>
-          <td>({data.feels_like.night}°C)</td>
+          <td>
+            {data.temp.night}°C ({data.feels_like.night}°C)
+          </td>
         </tr>
         <tr>
           <th>Press</th>
@@ -63,10 +69,12 @@ const SingleDay = ({ data }: { data: DailyProps }) => {
           <th>Wind Speed</th>
           <td>{data.wind_speed} m/s</td>
         </tr>
-        <tr>
-          <th>Wind Gust</th>
-          <td>{data.wind_gust} m/s</td>
-        </tr>
+        {data.wind_gust && (
+          <tr>
+            <th>Wind Gust</th>
+            <td>{data.wind_gust} m/s</td>
+          </tr>
+        )}
         <tr>
           <th>Wind Deg</th>
           <td>{data.wind_deg}°</td>
@@ -93,7 +101,15 @@ const SingleDay = ({ data }: { data: DailyProps }) => {
         </tr>
         <tr>
           <th>Weather</th>
-          {data.weather.map((item,i) => (
+          {data.weather.map((item, i) => (
+            <td key={i}>
+              <Weather.Small data={item} />
+            </td>
+          ))}
+        </tr>
+        <tr>
+          <th>Weather</th>
+          {data.weather.map((item, i) => (
             <td key={i}>
               <Weather.Large data={item} />
             </td>
