@@ -25,7 +25,7 @@ const AbstractWeather = ({
     >
       <div>
         <img
-          src={`http://openweathermap.org/img/wn/${data.icon}@2x.png`}
+          src={`//openweathermap.org/img/wn/${data.icon}@2x.png`}
           alt={data.description}
           title={`${data.description} (${data.main})`}
           style={{ width: size, background: '#ccc', borderRadius: size / 10 }}
