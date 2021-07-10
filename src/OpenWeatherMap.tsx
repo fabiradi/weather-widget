@@ -43,7 +43,7 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
           <LoadingOutlined style={{ color: '#008dff' }} />
         )}
         <div style={{ fontSize: '50%', fontWeight: 'normal' }}>
-          {lat} {lon}
+          {lat.toFixed(2)} / {lon.toFixed(2)}
           <button onClick={handleReload}>Reload</button>
           <label>
             <input
