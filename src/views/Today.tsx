@@ -86,7 +86,8 @@ const Today = ({ current, daily, hourly }: TodayProps) => {
         {pop && (
           <div style={{ color: '#369' }}>
             <FontAwesomeIcon icon={faUmbrella} style={iconStyle} />
-            {pop*100} % {rainHourly && `(${rainHourly['1h']} mm)`}
+            {(pop * 100).toFixed(0)} %{' '}
+            {rainHourly && `(${rainHourly['1h']} mm)`}
           </div>
         )}
         {wind_speed && (
