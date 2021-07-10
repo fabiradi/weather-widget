@@ -121,7 +121,6 @@ const SingleDay = ({ data }: { data: DailyProps }) => {
 }
 
 const Daily = ({ data }: { data?: DailyProps[] }) => {
-  console.log(data)
   return (
     <>
       <h3>Daily</h3>
