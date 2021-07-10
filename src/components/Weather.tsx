@@ -1,50 +1,47 @@
 import { WeatherCondition } from '../OpenWeatherMapProps'
 
-interface SmallProps {
+interface WeatherProps {
   data: WeatherCondition
   showText?: boolean
 }
 
-interface LargeProps {
-  data: WeatherCondition
+interface AbstractWeatherProps extends WeatherProps {
+  size: number
 }
 
-const Small = ({ data, showText }: SmallProps) => (
-  <div
-    style={{
-      fontSize: '85%',
-      textAlign: 'center',
-      width: 50,
-      WebkitHyphens: 'auto',
-    }}
-  >
-    {/* {data.main} */}
-    <div>
-      <img
-        src={`http://openweathermap.org/img/wn/${data.icon}@2x.png`}
-        alt={data.description}
-        title={`${data.description} (${data.main})`}
-        style={{ width: 50, background: '#ccc', borderRadius: 10 }}
-      />
+const AbstractWeather = ({
+  size = 75,
+  data,
+  showText,
+}: AbstractWeatherProps) => {
+  return (
+    <div
+      style={{
+        fontSize: '85%',
+        textAlign: 'center',
+        width: size,
+        WebkitHyphens: 'auto',
+      }}
+    >
+      <div>
+        <img
+          src={`http://openweathermap.org/img/wn/${data.icon}@2x.png`}
+          alt={data.description}
+          title={`${data.description} (${data.main})`}
+          style={{ width: size, background: '#ccc', borderRadius: size / 10 }}
+        />
+      </div>
+      {showText && (
+        <div style={{ opacity: 0.5, fontSize: `${(size / 75) * 1.25}%` }}>
+          {data.description}
+        </div>
+      )}
     </div>
-    {showText && (
-      <div style={{ opacity: 0.5, fontSize: '80%' }}>{data.description}</div>
-    )}
-  </div>
-)
+  )
+}
 
-const Large = ({ data }: LargeProps) => (
-  <div style={{ fontSize: '85%', textAlign: 'center' }} title={data.main}>
-    <div>
-      <img
-        src={`http://openweathermap.org/img/wn/${data.icon}@2x.png`}
-        alt={data.description}
-        title={data.description}
-        style={{ width: 75, background: '#ccc', borderRadius: 10 }}
-      />
-    </div>
-    <div style={{ opacity: 0.5 }}>{data.description}</div>
-  </div>
-)
+const Tiny = (props: WeatherProps) => <AbstractWeather size={25} {...props} />
+const Small = (props: WeatherProps) => <AbstractWeather size={50} {...props} />
+const Large = (props: WeatherProps) => <AbstractWeather size={75} {...props} showText />
 
-export default { Small, Large }
+export default { Tiny, Small, Large }
