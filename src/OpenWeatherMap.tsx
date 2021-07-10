@@ -4,7 +4,7 @@ import { LoadingOutlined } from '@ant-design/icons'
 
 import { Today, Current, Minutely, Hourly, Daily, Alerts, Raw } from './views'
 import { OpenWeatherMapOneCallProps } from './OpenWeatherMapProps'
-import demo from './demo-data'
+import demo from './demoData'
 
 const ApiKey = '4299d8d17ded7d36f45aaf2d123a24fa'
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/onecall'
