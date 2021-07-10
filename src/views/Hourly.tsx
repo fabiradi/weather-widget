@@ -102,7 +102,7 @@ const render = (key: string, row: HourlyProps) => {
       )
     case 'weather':
       return row.weather?.map((item: WeatherCondition, i: number) => (
-        <Weather.Small key={i} data={item} />
+        <Weather.Tiny key={i} data={item} />
       ))
     case 'rain':
       return row.rain ? `${row.rain['1h']} mm` : ''
