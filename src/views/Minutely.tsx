@@ -2,6 +2,8 @@ import { AreaChart, Area, BarChart, Bar } from 'recharts'
 //import SimpleBarGraph from '../components/SimpleBarGraph'
 import { MinutelyProps } from '../OpenWeatherMapProps'
 
+const WIDTH = 150
+
 const getMax = (arr?: number[]) =>
   arr?.reduce((max, item) => Math.max(max, item), 0) || 0
 
@@ -23,7 +25,7 @@ const Minutely = ({ data }: { data?: MinutelyProps[] }) => {
       </div>
       {/* <SimpleBarGraph data={data} /> */}
       {/* <div style={{ display: 'flex' }}> */}
-      <AreaChart width={300} height={100} data={data}>
+      <AreaChart width={WIDTH} height={100} data={data}>
         <Area
           dataKey="precipitation"
           type="monotoneY"
@@ -32,7 +34,7 @@ const Minutely = ({ data }: { data?: MinutelyProps[] }) => {
           fillOpacity={0.35}
         />
       </AreaChart>
-      <BarChart width={300} height={100} data={data} barCategoryGap={0}>
+      <BarChart width={WIDTH} height={100} data={data} barCategoryGap={0}>
         <Bar dataKey="precipitation" fill="#09f" minPointSize={1} />
       </BarChart>
       {/* </div> */}
