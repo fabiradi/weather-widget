@@ -9,6 +9,8 @@ import demo from './demoData'
 const ApiKey = '4299d8d17ded7d36f45aaf2d123a24fa'
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/onecall'
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
+
 const params2query = (obj: Record<string, string | number>) =>
   Object.entries(obj)
     .map((p) => p.join('='))
@@ -27,7 +29,10 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
     isValidating: false,
   }
 
-  const liveResult = useSWR<OpenWeatherMapOneCallProps>(url)
+  const liveResult = useSWR<OpenWeatherMapOneCallProps>(url, fetcher, {
+    refreshInterval: 30 * 1000,
+    //loadingTimeout: 10 * 1000,
+  })
   const result = isDemo ? demoResult : liveResult
   const { current, minutely, hourly, daily, alerts } = result.data || {}
 
