@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import useSWR from 'swr'
-import { LoadingOutlined } from '@ant-design/icons'
+import styled from 'styled-components'
+import { LoadingOutlined, ReloadOutlined } from '@ant-design/icons'
 
 import {
   Today,
@@ -51,25 +52,32 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
 
   return (
     <>
-      <h1>
-        Open Weather:{' '}
-        <Location lat={lat} lon={lon} />
-        {result.isValidating && (
-          <LoadingOutlined style={{ color: '#008dff' }} />
-        )}
-        <div style={{ fontSize: '50%', fontWeight: 'normal' }}>
+      <PreHead>
+        Open Weather Map @{' '}
+        <code>
           {lat.toFixed(2)} / {lon.toFixed(2)}
-          <button onClick={handleReload}>Reload</button>
-          <label>
-            <input
-              type="checkbox"
-              checked={isDemo}
-              onChange={(e) => setIsDemo(e.target.checked)}
-            />{' '}
-            Demo?
-          </label>
-        </div>
-      </h1>
+        </code>
+        |
+        <label>
+          <input
+            type="checkbox"
+            checked={isDemo}
+            onChange={(e) => setIsDemo(e.target.checked)}
+          />{' '}
+          Demo?
+        </label>
+      </PreHead>
+      <Head>
+        <Location lat={lat} lon={lon} />
+        {result.isValidating ? (
+          <LoadingOutlined style={{ color: '#008dff' }} />
+        ) : (
+          <ReloadOutlined
+            style={{ cursor: 'pointer', color: '#999', outline: 'none' }}
+            onClick={handleReload}
+          />
+        )}
+      </Head>
       <div style={{ display: 'flex' }}>
         <div>
           <Today current={current} hourly={hourly?.[0]} daily={daily?.[0]} />
@@ -84,5 +92,15 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
     </>
   )
 }
+
+const PreHead = styled.div`
+  color: #999;
+`
+
+const Head = styled.h1`
+  color: #444;
+  font-size: 175%;
+  margin: 0 0 20px;
+`
 
 export default OpenWeatherMap
