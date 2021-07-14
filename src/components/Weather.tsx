@@ -1,47 +1,31 @@
 import { WeatherCondition } from '../OpenWeatherMapProps'
+import { Wrapper, Description, Image } from './Weather.styles'
 
 interface WeatherProps {
   data: WeatherCondition
   showText?: boolean
 }
 
-interface AbstractWeatherProps extends WeatherProps {
+interface AbstractProps extends WeatherProps {
   size: number
 }
 
-const AbstractWeather = ({
-  size = 75,
-  data,
-  showText,
-}: AbstractWeatherProps) => {
+const AbstractWeather = ({ size = 75, data, showText }: AbstractProps) => {
+  const imageSrc = `//openweathermap.org/img/wn/${data.icon}@2x.png`
+  const text = `${data.description} (${data.main})`
+
   return (
-    <div
-      style={{
-        fontSize: '85%',
-        textAlign: 'center',
-        width: size,
-        WebkitHyphens: 'auto',
-      }}
-    >
-      <div>
-        <img
-          src={`//openweathermap.org/img/wn/${data.icon}@2x.png`}
-          alt={data.description}
-          title={`${data.description} (${data.main})`}
-          style={{ width: size, background: '#ccc', borderRadius: size / 10 }}
-        />
-      </div>
-      {showText && (
-        <div style={{ opacity: 0.5, fontSize: `${(size / 75) * 1.25}%` }}>
-          {data.description}
-        </div>
-      )}
-    </div>
+    <Wrapper size={size}>
+      <Image src={imageSrc} alt={text} title={text} size={size} />
+      {showText && <Description size={size}>{data.description}</Description>}
+    </Wrapper>
   )
 }
 
 const Tiny = (props: WeatherProps) => <AbstractWeather size={25} {...props} />
 const Small = (props: WeatherProps) => <AbstractWeather size={50} {...props} />
-const Large = (props: WeatherProps) => <AbstractWeather size={75} {...props} showText />
+const Large = (props: WeatherProps) => (
+  <AbstractWeather size={75} {...props} showText />
+)
 
 export default { Tiny, Small, Large }
