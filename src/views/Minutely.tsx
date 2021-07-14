@@ -15,13 +15,15 @@ const Minutely = ({ data }: { data?: MinutelyProps[] }) => {
   const sum = getSum(data?.map((item) => item.precipitation))
 
   return (
-    <div>
-      <div>
+    <div style={{ marginLeft: 10 }}>
+      <div style={{ fontSize: '85%' }}>
         Next Hour:{' '}
         <span style={{ color: sum > 0 ? '#c00' : '#090' }}>
           {sum?.toFixed(2)}mm
         </span>{' '}
-        {max > 0 && <span style={{ opacity: 0.35 }}>(max: {max}mm)</span>}
+        <div>
+          {max > 0 && <span style={{ opacity: 0.35 }}>(max: {max}mm)</span>}
+        </div>
       </div>
       {/* <SimpleBarGraph data={data} /> */}
       {/* <div style={{ display: 'flex' }}> */}

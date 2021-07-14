@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { renderDay, renderTime } from '../utils/time'
 import { uvCategoryColor } from '../utils/uvi'
 import {
@@ -114,6 +115,8 @@ const render = (key: string, row: HourlyProps) => {
 }
 
 const Hourly = ({ data }: { data?: HourlyProps[] }) => {
+  const [showDetails, setShowDetails] = useState(false)
+
   const chartdata = data?.map((item, idx, all) => {
     const prevItem = all[idx - 1]
     const nextItem = all[idx + 1]
@@ -137,7 +140,12 @@ const Hourly = ({ data }: { data?: HourlyProps[] }) => {
 
   return (
     <>
-      <h3>Hourly (48h)</h3>
+      <h3>
+        Hourly (48h){' '}
+        <button onClick={() => setShowDetails((s) => !s)}>
+          {showDetails ? 'hide details' : 'show details'}
+        </button>
+      </h3>
       <ComposedChart
         width={800}
         height={300}
@@ -232,9 +240,10 @@ const Hourly = ({ data }: { data?: HourlyProps[] }) => {
         />
       </ComposedChart>
 
-      <table className={'table'}>
-        <tbody>
-          {/*
+      {showDetails && (
+        <table className={'table'}>
+          <tbody>
+            {/*
           <tr>
             <th>dt</th>
             {data?.map((item, i) => (
@@ -242,18 +251,19 @@ const Hourly = ({ data }: { data?: HourlyProps[] }) => {
             ))}
           </tr>
           */}
-          {hourlyProps.map((key) => (
-            <tr key={key}>
-              <th>{translations.de[key] || key}</th>
-              {data?.map((row, idx) => (
-                <td key={idx} className="value">
-                  {render(key, row)}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            {hourlyProps.map((key) => (
+              <tr key={key}>
+                <th>{translations.de[key] || key}</th>
+                {data?.map((row, idx) => (
+                  <td key={idx} className="value">
+                    {render(key, row)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </>
   )
 }
