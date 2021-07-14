@@ -20,6 +20,10 @@
   text-align: right;
 }
 
+h1 {
+  margin: 0 0 20px;
+}
+
 h4 {
   color: #999;
 }

@@ -43,7 +43,7 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
   return (
     <>
       <h1>
-        OpenWeatherMap{' '}
+        Open Weather:{' '}
         {result.isValidating && (
           <LoadingOutlined style={{ color: '#008dff' }} />
         )}
