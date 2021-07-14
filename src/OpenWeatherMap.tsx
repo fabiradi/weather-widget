@@ -2,7 +2,16 @@ import { useState } from 'react'
 import useSWR from 'swr'
 import { LoadingOutlined } from '@ant-design/icons'
 
-import { Today, Current, Minutely, Hourly, Daily, Alerts, Raw } from './views'
+import {
+  Today,
+  Current,
+  Minutely,
+  Hourly,
+  Daily,
+  Alerts,
+  Raw,
+  Location,
+} from './views'
 import { OpenWeatherMapOneCallProps } from './OpenWeatherMapProps'
 import demo from './demoData'
 
@@ -44,6 +53,7 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
     <>
       <h1>
         Open Weather:{' '}
+        <Location lat={lat} lon={lon} />
         {result.isValidating && (
           <LoadingOutlined style={{ color: '#008dff' }} />
         )}

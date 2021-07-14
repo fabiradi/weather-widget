@@ -5,5 +5,6 @@ import Hourly from './Hourly'
 import Daily from './Daily'
 import Alerts from './Alerts'
 import Raw from './Raw'
+import Location from './Location'
 
-export { Today, Current, Minutely, Hourly, Daily, Alerts, Raw }
+export { Today, Current, Minutely, Hourly, Daily, Alerts, Raw, Location }
