@@ -1,10 +1,259 @@
 import { MinutelyProps } from './OpenWeatherMapProps'
 
+/*
 const minutely: MinutelyProps[] = [
   0, 0, 1, 3, 1, 15, 5, 43, 34, 19, 17, 12, 6, 3, 2, 1, 0, 0, 2, 3, 5, 6, 9, 7,
   8, 6, 5, 2, 3, 2, 1, 0, 9, 0, 0, 0, 0, 9, 12, 23, 43, 42, 42, 41, 39, 37, 32,
   29, 27, 21, 17, 15, 13, 11, 9, 2, 5, 8, 7, 3, 4,
 ].map((item, i) => ({ dt: 1622190088 + i * 100, precipitation: item / 100 }))
+*/
+
+const minutely = [
+  {
+    dt: 1626222000,
+    precipitation: 2.734,
+  },
+  {
+    dt: 1626222060,
+    precipitation: 2.734,
+  },
+  {
+    dt: 1626222120,
+    precipitation: 2.734,
+  },
+  {
+    dt: 1626222180,
+    precipitation: 2.734,
+  },
+  {
+    dt: 1626222240,
+    precipitation: 2.734,
+  },
+  {
+    dt: 1626222300,
+    precipitation: 2.734,
+  },
+  {
+    dt: 1626222360,
+    precipitation: 2.8188,
+  },
+  {
+    dt: 1626222420,
+    precipitation: 2.9036,
+  },
+  {
+    dt: 1626222480,
+    precipitation: 2.9884,
+  },
+  {
+    dt: 1626222540,
+    precipitation: 3.0732,
+  },
+  {
+    dt: 1626222600,
+    precipitation: 3.158,
+  },
+  {
+    dt: 1626222660,
+    precipitation: 3.158,
+  },
+  {
+    dt: 1626222720,
+    precipitation: 3.158,
+  },
+  {
+    dt: 1626222780,
+    precipitation: 3.158,
+  },
+  {
+    dt: 1626222840,
+    precipitation: 3.158,
+  },
+  {
+    dt: 1626222900,
+    precipitation: 3.158,
+  },
+  {
+    dt: 1626222960,
+    precipitation: 3.0732,
+  },
+  {
+    dt: 1626223020,
+    precipitation: 2.9884,
+  },
+  {
+    dt: 1626223080,
+    precipitation: 2.9036,
+  },
+  {
+    dt: 1626223140,
+    precipitation: 2.8188,
+  },
+  {
+    dt: 1626223200,
+    precipitation: 2.734,
+  },
+  {
+    dt: 1626223260,
+    precipitation: 2.734,
+  },
+  {
+    dt: 1626223320,
+    precipitation: 2.734,
+  },
+  {
+    dt: 1626223380,
+    precipitation: 2.734,
+  },
+  {
+    dt: 1626223440,
+    precipitation: 2.734,
+  },
+  {
+    dt: 1626223500,
+    precipitation: 2.734,
+  },
+  {
+    dt: 1626223560,
+    precipitation: 2.4948,
+  },
+  {
+    dt: 1626223620,
+    precipitation: 2.2556,
+  },
+  {
+    dt: 1626223680,
+    precipitation: 2.0164,
+  },
+  {
+    dt: 1626223740,
+    precipitation: 1.7772,
+  },
+  {
+    dt: 1626223800,
+    precipitation: 1.538,
+  },
+  {
+    dt: 1626223860,
+    precipitation: 1.704,
+  },
+  {
+    dt: 1626223920,
+    precipitation: 1.87,
+  },
+  {
+    dt: 1626223980,
+    precipitation: 2.036,
+  },
+  {
+    dt: 1626224040,
+    precipitation: 2.202,
+  },
+  {
+    dt: 1626224100,
+    precipitation: 2.368,
+  },
+  {
+    dt: 1626224160,
+    precipitation: 2.1608,
+  },
+  {
+    dt: 1626224220,
+    precipitation: 1.9536,
+  },
+  {
+    dt: 1626224280,
+    precipitation: 1.7464,
+  },
+  {
+    dt: 1626224340,
+    precipitation: 1.5392,
+  },
+  {
+    dt: 1626224400,
+    precipitation: 1.332,
+  },
+  {
+    dt: 1626224460,
+    precipitation: 1.332,
+  },
+  {
+    dt: 1626224520,
+    precipitation: 1.332,
+  },
+  {
+    dt: 1626224580,
+    precipitation: 1.332,
+  },
+  {
+    dt: 1626224640,
+    precipitation: 1.332,
+  },
+  {
+    dt: 1626224700,
+    precipitation: 1.332,
+  },
+  {
+    dt: 1626224760,
+    precipitation: 1.3732,
+  },
+  {
+    dt: 1626224820,
+    precipitation: 1.4144,
+  },
+  {
+    dt: 1626224880,
+    precipitation: 1.4556,
+  },
+  {
+    dt: 1626224940,
+    precipitation: 1.4968,
+  },
+  {
+    dt: 1626225000,
+    precipitation: 1.538,
+  },
+  {
+    dt: 1626225060,
+    precipitation: 1.538,
+  },
+  {
+    dt: 1626225120,
+    precipitation: 1.538,
+  },
+  {
+    dt: 1626225180,
+    precipitation: 1.538,
+  },
+  {
+    dt: 1626225240,
+    precipitation: 1.538,
+  },
+  {
+    dt: 1626225300,
+    precipitation: 1.538,
+  },
+  {
+    dt: 1626225360,
+    precipitation: 1.5856,
+  },
+  {
+    dt: 1626225420,
+    precipitation: 1.6332,
+  },
+  {
+    dt: 1626225480,
+    precipitation: 1.6808,
+  },
+  {
+    dt: 1626225540,
+    precipitation: 1.7284,
+  },
+  {
+    dt: 1626225600,
+    precipitation: 1.776,
+  },
+] as MinutelyProps[]
 
 const full = {
   lat: 33.44,
