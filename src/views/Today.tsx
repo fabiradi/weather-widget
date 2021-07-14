@@ -38,6 +38,8 @@ const Today = ({ current, daily, hourly }: TodayProps) => {
     rain,
     wind_speed,
     wind_gust,
+    pressure,
+    visibility,
   } = current || {}
   const { pop, rain: rainHourly } = hourly || {}
   const { temp } = daily || {}
@@ -148,6 +150,30 @@ const Today = ({ current, daily, hourly }: TodayProps) => {
             <FontAwesomeIcon icon={faArrowDown} style={iconStyle} />
             {renderTime(sunset)}
           </span>
+        </div>
+        <div
+          style={{
+            color: '#999',
+            fontSize: '85%',
+            marginTop: '0.5em',
+            // paddingTop: '0.5em',
+            // borderTop: '1px dotted #ccc',
+          }}
+        >
+          <span>{pressure} hPa</span>
+          {visibility ? (
+            <span
+              style={{
+                marginLeft: '0.5em',
+                paddingLeft: '0.5em',
+                borderLeft: '1px solid #ccc',
+              }}
+            >
+              {(visibility / 1000).toFixed(0)} km
+            </span>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </div>
