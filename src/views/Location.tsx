@@ -2,32 +2,10 @@ import { useMemo } from 'react'
 import styled from 'styled-components'
 import useSWR from 'swr'
 
+import { ReverseGeocodingProps } from '../OpenWeatherMapProps'
+
 const ApiKey = '4299d8d17ded7d36f45aaf2d123a24fa'
 const BASE_URL = 'https://api.openweathermap.org/geo/1.0/reverse'
-
-type ReverseGeocodingProps = {
-  /** Name of the found location */
-  name: string
-  local_names: {
-    /** Internal field */
-    ascii: string
-    /** Internal field */
-    feature_name: string
-    /** Name of the found location in different languages. The list of names can be different for different locations. */
-    de?: string
-    /** Name of the found location in different languages. The list of names can be different for different locations. */
-    en?: string
-  }[]
-  /** Geographical coordinates of the found location (latitude) */
-  lat: number
-  /** Geographical coordinates of the found location (longitude) */
-  lon: number
-  /** Country of the found location */
-  country: string
-  /** (where available) State of the found location */
-  state?: string
-}
-
 interface LocationProps {
   lat: number
   lon: number
