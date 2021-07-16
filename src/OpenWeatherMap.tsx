@@ -57,8 +57,7 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
         <code>
           {lat.toFixed(2)} / {lon.toFixed(2)}
         </code>
-        |
-        <label>
+        <label style={{ whiteSpace: 'pre' }}>
           <input
             type="checkbox"
             checked={isDemo}
@@ -68,14 +67,20 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
         </label>
       </PreHead>
       <Head>
-        <Location lat={lat} lon={lon} />
-        {result.isValidating ? (
-          <LoadingOutlined style={{ color: '#008dff' }} />
+        {isDemo ? (
+          'DEMO'
         ) : (
-          <ReloadOutlined
-            style={{ cursor: 'pointer', color: '#999', outline: 'none' }}
-            onClick={handleReload}
-          />
+          <>
+            <Location lat={lat} lon={lon} />
+            {result.isValidating ? (
+              <LoadingOutlined style={{ color: '#008dff' }} />
+            ) : (
+              <ReloadOutlined
+                style={{ cursor: 'pointer', color: '#999', outline: 'none' }}
+                onClick={handleReload}
+              />
+            )}
+          </>
         )}
       </Head>
       <div style={{ display: 'flex' }}>
