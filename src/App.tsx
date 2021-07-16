@@ -35,7 +35,10 @@ export default function App() {
 
   return (
     <div className="App">
-      <button style={{ position: 'absolute', top: 10, right: 10 }} onClick={getLocation}>
+      <button
+        style={{ float: 'right', top: 10, right: 10 }}
+        onClick={getLocation}
+      >
         Update Location
       </button>
       <OpenWeatherMap lat={location.lat} lon={location.lon} />
