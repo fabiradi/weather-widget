@@ -29,12 +29,7 @@ const Location = ({ lat, lon }: LocationProps) => {
 
 const Wrapper = styled.div`
   display: inline-block;
-  /*
-  float: right;
-  position: absolute;
-  top: 30px;
-  right: 10px;
-  */
+  margin-right: 0.25em;
 `
 
 const Loading = styled.span`
