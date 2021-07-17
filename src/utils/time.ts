@@ -17,9 +17,14 @@ const renderDay = (ts: number) =>
     .tz('Europe/Berlin')
     .format('ddd, DD.MM.')
 
+const renderDayShort = (ts: number) =>
+  dayjs(ts * 1000)
+    .tz('Europe/Berlin')
+    .format('ddd')
+
 const renderDate = (ts: number) =>
   dayjs(ts * 1000)
     .tz('Europe/Berlin')
     .format('DD.MM.')
 
-export { renderTime, renderDate, renderDay }
+export { renderTime, renderDate, renderDay, renderDayShort }
