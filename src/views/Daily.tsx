@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone' // dependent on utc plugin
@@ -114,7 +115,7 @@ const SingleDay = ({ data }: { data: DailyProps }) => {
         <tr>
           <th>Weather</th>
           {data.weather.map((item, i) => (
-            <td key={i}>
+            <td colSpan={2} key={i}>
               <Weather.Small data={item} />
             </td>
           ))}
@@ -139,22 +140,29 @@ const CombinedDays = ({ data }: { data: DailyProps[] }) => {
         <tr>
           <th>Day</th>
           {data?.map((item, i) => (
-            <td key={i}>{renderDay(item.dt)}</td>
+            <th key={i}>{renderDayShort(item.dt)}</th>
           ))}
         </tr>
         <tr>
-          <th>Rise/Set</th>
+          <th>Rise</th>
           {data?.map((item, i) => (
-            <td key={i}>
-              {renderTime(item.sunrise)} / {renderTime(item.sunset)}
-            </td>
+            <td key={i}>{renderTime(item.sunrise)}</td>
           ))}
         </tr>
         <tr>
-          <th>T.Min/Max</th>
+          <th>Set</th>
+          {data?.map((item, i) => (
+            <td key={i}>{renderTime(item.sunset)}</td>
+          ))}
+        </tr>
+        <tr>
+          <th>
+            T.Max<Shy>Min</Shy>
+          </th>
           {data?.map((item, i) => (
             <td key={i}>
-              {item.temp.min}°C / {item.temp.max}°C
+              {item.temp.max}°C
+              <Shy>{item.temp.min}°C</Shy>
             </td>
           ))}
         </tr>
@@ -162,7 +170,8 @@ const CombinedDays = ({ data }: { data: DailyProps[] }) => {
           <th>T.Morn</th>
           {data?.map((item, i) => (
             <td key={i}>
-              {item.temp.morn}°C ({item.feels_like.morn}°C)
+              {item.temp.morn}°C
+              <Shy>{item.feels_like.morn}°C</Shy>
             </td>
           ))}
         </tr>
@@ -170,7 +179,8 @@ const CombinedDays = ({ data }: { data: DailyProps[] }) => {
           <th>T.Day</th>
           {data?.map((item, i) => (
             <td key={i}>
-              {item.temp.day}°C ({item.feels_like.day}°C)
+              {item.temp.day}°C
+              <Shy>{item.feels_like.day}°C</Shy>
             </td>
           ))}
         </tr>
@@ -178,7 +188,8 @@ const CombinedDays = ({ data }: { data: DailyProps[] }) => {
           <th>T.Eve</th>
           {data?.map((item, i) => (
             <td key={i}>
-              {item.temp.eve}°C ({item.feels_like.eve}°C)
+              {item.temp.eve}°C
+              <Shy>{item.feels_like.eve}°C</Shy>
             </td>
           ))}
         </tr>
@@ -186,7 +197,8 @@ const CombinedDays = ({ data }: { data: DailyProps[] }) => {
           <th>T.Night</th>
           {data?.map((item, i) => (
             <td key={i}>
-              {item.temp.night}°C ({item.feels_like.night}°C)
+              {item.temp.night}°C
+              <Shy>{item.feels_like.night}°C</Shy>
             </td>
           ))}
         </tr>
@@ -261,7 +273,7 @@ const CombinedDays = ({ data }: { data: DailyProps[] }) => {
           {data?.map((item) =>
             item.weather.map((witem, wi) => (
               <td key={wi}>
-                <Weather.Small data={witem} />
+                <Weather.Small data={witem} showText />
               </td>
             ))
           )}
@@ -382,12 +394,18 @@ const Table = styled.table`
   border: 1px solid #000;
   margin-right: 10px;
   border-collapse: collapse;
+  white-space: pre;
 
   & th,
   & td {
     border: 1px solid #999;
     vertical-align: top;
   }
+`
+
+const Shy = styled.div`
+  color: #999;
+  font-size: 90%;
 `
 
 export default Daily
