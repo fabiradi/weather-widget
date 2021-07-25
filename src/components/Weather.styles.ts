@@ -5,6 +5,7 @@ const Wrapper = styled.div<{ size: number }>`
   text-align: center;
   width: ${({ size }) => size}px;
   hyphens: auto;
+  white-space: normal;
 `
 
 const Image = styled.img<{ size: number }>`
