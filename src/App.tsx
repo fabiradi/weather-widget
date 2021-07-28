@@ -29,6 +29,9 @@ const App = () => {
         () => {
           console.warn('Fallback for geolocation')
           setIsLocating(false)
+        },
+        {
+          maximumAge: 60 * 5 * 60 * 1000, // 5 minutes
         }
       )
     }
