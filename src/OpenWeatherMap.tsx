@@ -53,10 +53,7 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
   return (
     <>
       <PreHead>
-        Open Weather Map @{' '}
-        <code>
-          {lat.toFixed(2)} / {lon.toFixed(2)}
-        </code>
+        Open Weather Map
         <label style={{ whiteSpace: 'pre' }}>
           <input
             type="checkbox"
@@ -82,6 +79,9 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
             )}
           </>
         )}
+        <span style={{ opacity: 0.5, marginLeft: '0.5em', fontSize: '50%', fontWeight: 'normal' }}>
+          {lat.toFixed(2)}, {lon.toFixed(2)}
+        </span>
       </Head>
       <div style={{ display: 'flex' }}>
         <div>
