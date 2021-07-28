@@ -166,16 +166,6 @@ const CombinedDays = ({ data }: { data: DailyProps[] }) => {
             ))
           )}
         </tr>
-        <tr>
-          <th>Weather</th>
-          {data?.map((item) =>
-            item.weather.map((witem, wi) => (
-              <td key={wi}>
-                <Weather.Large data={witem} />
-              </td>
-            ))
-          )}
-        </tr>
       </tbody>
     </Table>
   )
@@ -289,6 +279,10 @@ const Table = styled.table`
   & td {
     border: 1px solid #999;
     vertical-align: top;
+  }
+
+  & td {
+    font-size: 85%;
   }
 `
 
