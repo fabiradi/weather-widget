@@ -6,7 +6,7 @@ import './styles.css'
 const LAT = 51.75
 const LON = 8.39
 
-export default function App() {
+const App = () => {
   const [location, setLocation] = useState({ lat: LAT, lon: LON })
 
   const getLocation = () => {
@@ -34,7 +34,7 @@ export default function App() {
   }, [])
 
   return (
-    <div className="App">
+    <>
       <button
         style={{ float: 'right', top: 10, right: 10 }}
         onClick={getLocation}
@@ -42,6 +42,8 @@ export default function App() {
         Update Location
       </button>
       <OpenWeatherMap lat={location.lat} lon={location.lon} />
-    </div>
+    </>
   )
 }
+
+export default App
