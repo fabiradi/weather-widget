@@ -11,16 +11,17 @@ const App = () => {
 
   const getLocation = () => {
     if (!navigator.geolocation) {
-      console.log('Geolocation is not supported by your browser')
+      console.debug('Geolocation is not supported by your browser')
     } else {
-      console.log('Locating…')
+      //console.debug('Locating…')
       navigator.geolocation.getCurrentPosition(
         (position: GeolocationPosition) => {
-          console.log(position)
-          setLocation({
+          const location = {
             lat: position.coords.latitude,
             lon: position.coords.longitude,
-          })
+          }
+          console.log('🌍', location)
+          setLocation(location)
         },
         () => {
           console.warn('Fallback for geolocation')
