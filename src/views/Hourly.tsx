@@ -12,6 +12,7 @@ import {
   Tooltip,
   CartesianGrid,
   ReferenceLine,
+  DotProps,
 } from 'recharts'
 
 import { HourlyProps, WeatherCondition } from '../OpenWeatherMapProps'
@@ -268,19 +269,27 @@ const Hourly = ({ data }: { data?: HourlyProps[] }) => {
   )
 }
 
-const UvDot = (props: any) => {
-  //console.log(props)
+interface PayloadProps extends HourlyProps {
+  label: string
+}
+
+interface LineDotProps extends DotProps {
+  value?: number
+  payload?: PayloadProps
+}
+
+const UvDot = (props: LineDotProps) => {
   const { cx, cy, r, value } = props
 
   return (
     <circle
       cx={cx}
       cy={cy}
-      r={r * 2}
+      r={r ?? 0 * 2}
       stroke="none" //{stroke}
       strokeWidth={1}
       //fill={uvCategory(value[1] || value)} FIXME: Wehen to use array here?
-      fill={uvCategoryColor(value)}
+      fill={uvCategoryColor(value || 0)}
     />
   )
 }
