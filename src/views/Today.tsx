@@ -116,20 +116,18 @@ const Today = ({ current, daily, hourly }: TodayProps) => {
             />
             {uvi}
           </span>
-          {clouds && (
-            <span
-              style={{
-                color: '#999',
-                marginLeft: '0.5em',
-                paddingLeft: '0.5em',
-                borderLeft: '1px solid #ccc',
-              }}
-            >
-              {' '}
-              <FontAwesomeIcon icon={faCloud} style={iconStyle} />
-              {clouds} %
-            </span>
-          )}
+          <span
+            style={{
+              color: '#999',
+              marginLeft: '0.5em',
+              paddingLeft: '0.5em',
+              borderLeft: '1px solid #ccc',
+            }}
+          >
+            {' '}
+            <FontAwesomeIcon icon={faCloud} style={iconStyle} />
+            {clouds} %
+          </span>
         </div>
         <div
           style={{
