@@ -310,7 +310,7 @@ const Daily = ({ data }: { data?: DailyProps[] }) => {
       // name: renderTime(item.dt),
       labelMax: isHigh || isLow ? labelMax : '',
       //label: label,
-      //rain: item.rain ?? 0,
+      rain: item.rain ?? 0,
     }
   })
 
@@ -348,6 +348,7 @@ const Daily = ({ data }: { data?: DailyProps[] }) => {
           fill="#3366ff"
           fillOpacity={0.5}
           type="monotone"
+          label={{ fill: '#3366ff', fontSize: 12, position: 'top' }}
         />
 
         <YAxis dataKey="temp.max" />
