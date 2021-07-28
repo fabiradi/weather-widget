@@ -11,7 +11,8 @@ interface AbstractProps extends WeatherProps {
 }
 
 const AbstractWeather = ({ size = 75, data, showText }: AbstractProps) => {
-  const imageSrc = `//openweathermap.org/img/wn/${data.icon}@2x.png`
+  //const imageSrc = `//openweathermap.org/img/wn/${data.icon}@2x.png`
+  const imageSrc = process.env.PUBLIC_URL + `/wn/${data.icon}.png`
   const text = `${data.description} (${data.main})`
 
   return (

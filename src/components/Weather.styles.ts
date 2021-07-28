@@ -10,8 +10,8 @@ const Wrapper = styled.div<{ size: number }>`
 
 const Image = styled.img<{ size: number }>`
   width: ${({ size }) => size}px;
-  background: #ccc;
-  border-radius: ${({ size }) => size / 10}px;
+  //background: #ccc;
+  //border-radius: ${({ size }) => size / 10}px;
 `
 
 const Description = styled.div<{ size: number }>`
