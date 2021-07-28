@@ -37,7 +37,7 @@ const App = () => {
   useEffect(getLocation, [])
 
   return (
-    <>
+    <div style={{ padding: 10 }}>
       <button
         style={{ float: 'right', top: 10, right: 10 }}
         onClick={getLocation}
@@ -46,7 +46,7 @@ const App = () => {
         Update Location{isLocating ? '...' : ''}
       </button>
       <OpenWeatherMap lat={location.lat} lon={location.lon} />
-    </>
+    </div>
   )
 }
 
