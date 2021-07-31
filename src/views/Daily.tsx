@@ -196,7 +196,7 @@ const Daily = ({ data }: { data?: DailyProps[] }) => {
     <>
       <h3>Daily</h3>
       <ComposedChart
-        width={600}
+        width={390}
         height={250}
         data={chartdata}
         //barCategoryGap={15}
