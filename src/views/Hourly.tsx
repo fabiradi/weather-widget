@@ -148,7 +148,7 @@ const Hourly = ({ data }: { data?: HourlyProps[] }) => {
         </button>
       </h3>
       <ComposedChart
-        width={600}
+        width={390}
         height={250}
         data={chartdata}
         barCategoryGap={1}

@@ -37,7 +37,9 @@ const App = () => {
     }
   }
 
-  useEffect(getLocation, [])
+  useEffect(() => {
+    //getLocation()
+  }, [])
 
   return (
     <div style={{ padding: 10 }}>

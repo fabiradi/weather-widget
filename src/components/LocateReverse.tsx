@@ -1,30 +1,40 @@
 import { useMemo } from 'react'
 import styled from 'styled-components'
 import useSWR from 'swr'
+import useApiKey from '../hooks/useApiKey'
 
 import { ReverseGeocodingProps } from '../OpenWeatherMapProps'
 
-const ApiKey = '4299d8d17ded7d36f45aaf2d123a24fa'
 const BASE_URL = 'https://api.openweathermap.org/geo/1.0/reverse'
 interface LocationProps {
   lat: number
   lon: number
 }
 
-const Location = ({ lat, lon }: LocationProps) => {
-  const url = useMemo(
-    () => `${BASE_URL}?lat=${lat}&lon=${lon}&limit=10&appid=${ApiKey}`,
-    [lat, lon]
-  )
-  const result = useSWR<ReverseGeocodingProps[]>(url)
+const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
-  const locationName = result.isValidating ? '...' : result.data?.[0].name
+const Location = ({ lat, lon }: LocationProps) => {
+  const [apiKey] = useApiKey()
+  const url = useMemo(
+    () => `${BASE_URL}?lat=${lat}&lon=${lon}&limit=10&appid=${apiKey}`,
+    [lat, lon, apiKey]
+  )
+  const result = useSWR<ReverseGeocodingProps[]>(url, fetcher, {
+    //refreshInterval: 30 * 60 * 1000, // 30 minutes
+    //loadingTimeout: 10 * 1000,
+    revalidateOnFocus: false,
+    //focusThrottleInterval: 10 * MINUTES,
+    shouldRetryOnError: false,
+  })
+  console.log('Location', result.data)
+
+  const locationName = result.isValidating ? '...' : result.data?.[0]?.name
 
   return (
     <Wrapper title={`${lat.toFixed(3)}, ${lon.toFixed(3)}`}>
       {result.isValidating ? <Loading>Loading ...</Loading> : locationName}
     </Wrapper>
-  )
+  ) 
 }
 
 const Wrapper = styled.div`

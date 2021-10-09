@@ -79,21 +79,15 @@ const Today = ({ current, daily, hourly }: TodayProps) => {
           {' · '}
           {humidity} %
         </DewPoint>
-        {rain && (
-          <div style={{ color: '#c00' }}>
-            <FontAwesomeIcon icon={faUmbrella} style={iconStyle} />
-            {rain['1h']} mm
-          </div>
-        )}
-        {pop ? (
-          <div style={{ color: '#369' }}>
-            <FontAwesomeIcon icon={faUmbrella} style={iconStyle} />
-            {(pop * 100).toFixed(0)} %{' '}
-            {rainHourly && `(${rainHourly['1h']} mm)`}
-          </div>
-        ) : (
-          ''
-        )}
+        <div style={{ color: rain ? '#c00' : '#999' }}>
+          <FontAwesomeIcon icon={faUmbrella} style={iconStyle} />
+          {rain ? rain['1h'] : 0} mm (day)
+        </div>
+        <div style={{ color: pop ? '#369' : '#999' }}>
+          <FontAwesomeIcon icon={faUmbrella} style={iconStyle} />
+          {(pop || 0 * 100).toFixed(0)} %{' '}
+          {rainHourly && `(${rainHourly['1h']} mm)`} (hr)
+        </div>
         {wind_speed && (
           <div
             style={{
