@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 import useSWR from 'swr'
 import useApiKey from '../hooks/useApiKey'
@@ -11,22 +11,29 @@ interface LocationProps {
   lon: number
 }
 
-const fetcher = (url: string) => fetch(url).then((r) => r.json())
+const fetcher = (url: string) => {
+  // console.log('fetcher', { url })
+  return fetch(url).then((r) => r.json())
+}
 
 const Location = ({ lat, lon }: LocationProps) => {
   const [apiKey] = useApiKey()
+  // console.log({ lat, lon, apiKey })
   const url = useMemo(
     () => `${BASE_URL}?lat=${lat}&lon=${lon}&limit=10&appid=${apiKey}`,
     [lat, lon, apiKey]
   )
-  const result = useSWR<ReverseGeocodingProps[]>(url, fetcher, {
+  const result = useSWR<ReverseGeocodingProps[]>(apiKey ? url : null, fetcher, {
     //refreshInterval: 30 * 60 * 1000, // 30 minutes
     //loadingTimeout: 10 * 1000,
     revalidateOnFocus: false,
     //focusThrottleInterval: 10 * MINUTES,
     shouldRetryOnError: false,
   })
-  console.log('Location', result.data)
+
+  useEffect(() => {
+    console.log('Location', result.data)
+  }, [result.data])
 
   const locationName = result.isValidating ? '...' : result.data?.[0]?.name
 
@@ -34,7 +41,7 @@ const Location = ({ lat, lon }: LocationProps) => {
     <Wrapper title={`${lat.toFixed(3)}, ${lon.toFixed(3)}`}>
       {result.isValidating ? <Loading>Loading ...</Loading> : locationName}
     </Wrapper>
-  ) 
+  )
 }
 
 const Wrapper = styled.div`

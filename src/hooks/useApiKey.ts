@@ -32,7 +32,7 @@ const useApiKey = (): [string, Setter] => {
     [key]
   )
 
-  console.debug('render useApiKey')
+  // console.debug('render useApiKey')
 
   const returnValue = useMemo<[string, Setter]>(
     () => [key, changeKey],

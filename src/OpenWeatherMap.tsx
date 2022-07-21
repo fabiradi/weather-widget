@@ -18,9 +18,9 @@ const BASE_URL = 'https://api.openweathermap.org/data/2.5/onecall'
 
 const fetcher = (url: string) =>
   fetch(url).then(async (res) => {
-    console.debug('fetch')
+    // console.debug('fetch')
     const { ok, status, statusText } = res
-    console.log({ ok, status, statusText })
+    // console.log({ ok, status, statusText })
     const result = await res.json()
     return ok
       ? result
@@ -74,7 +74,7 @@ const OpenWeatherMap = ({ lat, lon }: { lat: number; lon: number }) => {
   )
 
   //const { data, error } = result
-  console.log('🐶', { apiKey, result })
+  // console.log('🐶', { apiKey, result })
   //const result = isDemo ? demoResult : liveResult
   const { current, minutely, hourly, daily, alerts } = result.data || {}
 

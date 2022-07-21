@@ -8,7 +8,7 @@ import Weather from '../components/Weather'
 const Current = ({ data }: { data?: CurrentProps }) => {
   const [showDetails, setShowDetails] = useState(false)
 
-  console.log('Current', { data })
+  // console.log('Current', { data })
 
   return (
     <div>
