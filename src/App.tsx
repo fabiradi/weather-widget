@@ -27,7 +27,8 @@ const App = () => {
           setIsLocating(false)
         },
         () => {
-          console.warn('Fallback for geolocation')
+          console.warn('Fallback for geolocation: not allowed')
+          alert('Geolocation not allowed')
           setIsLocating(false)
         },
         {
